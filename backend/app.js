@@ -15,7 +15,10 @@ app.use(morgan('tiny'))
 const productsSchema = mongoose.Schema({
     name: String,
     image: String,
-    countInStock: Number
+    countInStock: {
+        type: Number,
+        required: true
+    }
 })
 const Product = mongoose.model('Product', productsSchema)
 
