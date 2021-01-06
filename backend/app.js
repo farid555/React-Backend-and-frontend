@@ -10,11 +10,6 @@ const api = process.env.API_URL
 app.use(bodyParser.json())
 
 
-
-
-
-
-
 app.get(`${api}/products`, (req, res) => {
     const product = {         //product is object
         id: 1,
@@ -23,6 +18,12 @@ app.get(`${api}/products`, (req, res) => {
 
     }
     res.send(product)
+})
+
+app.post(`${api}/products`, (req, res) => {
+    const newProduct = req.body
+    console.log(newProduct)
+    res.send(newProduct)
 })
 
 
