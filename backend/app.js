@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 
 
@@ -12,6 +13,11 @@ const api = process.env.API_URL
 //middleware
 app.use(bodyParser.json())
 app.use(morgan('tiny'))
+app.use(cors())
+app.options('*', cors())   // HTTP options method requests permitted communication 
+//options for a given URL or server...
+
+
 
 
 const categoriesRoutes = require('./routes/categories')
