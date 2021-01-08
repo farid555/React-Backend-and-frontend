@@ -2,6 +2,7 @@ const { Product } = require('../models/product')
 const express = require('express')
 const { Category } = require('../models/category')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 router.get(`/`, async (req, res) => {
     const productList = await Product.find().populate('category')
@@ -22,7 +23,6 @@ router.post('/', async (req, res) => {
     const category = await Category.findById(req.body.category)
     if (!category) return res.status(400).send('Invalid Category')
     let product = new Product({
-
         name: req.body.name,
         description: req.body.description,
         richDescription: req.body.richDescription,
@@ -41,7 +41,12 @@ router.post('/', async (req, res) => {
         return res.status(500).send('The product cannot be created')
     res.send(product)
 })
+
 router.put('/:id', async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send('Invalid Product Id!')
+    }
+
     const category = await Category.findById(req.body.category)
     if (!category) return res.status(400).send('Invalid Category')
 
@@ -63,10 +68,10 @@ router.put('/:id', async (req, res) => {
         },
         { new: true }
     )
-    if (!category)
+    if (!product)
         return res.status(500).send('The product cannot be updated!')
 
-    res.send(category)
+    res.send(product)
 
 })
 router.delete(`/:id`, async (req, res) => {
