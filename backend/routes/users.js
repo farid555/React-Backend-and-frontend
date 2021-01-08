@@ -13,7 +13,7 @@ router.get(`/`, async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-    const user = await User.findById(req.params.id).select('name phone email')
+    const user = await User.findById(req.params.id)//.select('name phone email')
     if (!user) {
         res.status(500).json({ success: 'The user with the given ID was not found. ' })
     }
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
 router.post(`/`, async (req, res) => {
     let user = new User({
         name: req.body.name,
-        gmail: req.body.gmail,
+        email: req.body.email,
         passwordHash: bcrypt.hashSync(req.body.password, 10),
         phone: req.body.phone,
         isAdmin: req.body.isAdmin,
@@ -37,6 +37,14 @@ router.post(`/`, async (req, res) => {
         return res.status(500).send('the user cannot be created!')
     }
     res.send(user)
+})
+
+router.post(`/login`, async (req, res) => {
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) {
+        res.status(400).send('The user is not found')
+    }
+    return res.send(user)
 })
 
 module.exports = router;
