@@ -69,5 +69,17 @@ router.put('/:id', async (req, res) => {
     res.send(category)
 
 })
+router.delete(`/:id`, async (req, res) => {
+    Product.findByIdAndRemove(req.params.id).then(product => {
+        if (product) {
+            return res.status(200).json({ success: true, message: 'the product is deleted!' })// success deleted 
+        } else {
+            return res.status(404).json({ success: false, message: 'product not found!' })// find no found code
+        }
+
+    }).catch(err => {
+        return res.status(400).json({ success: false, error: err })//somekind of error wrong data or connection erros...
+    })
+})
 
 module.exports = router;
