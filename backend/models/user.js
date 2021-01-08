@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema({
 
 
     },
-    cstreet: {
+    street: {
         type: String,
         default: ''
 

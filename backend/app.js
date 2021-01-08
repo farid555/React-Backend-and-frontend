@@ -29,7 +29,7 @@ const usersRoutes = require('./routes/users')
 
 
 
-//Router
+//Api Routes define here....
 
 app.use(`${api}/categories`, categoriesRoutes)
 app.use(`${api}/products`, productsRoutes)
