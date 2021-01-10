@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const authJwt = require('./helpers/jwt')
+const ErrorHandler = require('./helpers/error-handler')
 
 
 
@@ -17,6 +18,7 @@ app.use(morgan('tiny'))
 app.use(cors())
 app.options('*', cors())   // HTTP options method requests permitted communication 
 app.use(authJwt())
+app.use(ErrorHandler)
 //options for a given URL or server...
 
 
@@ -26,6 +28,7 @@ const categoriesRoutes = require('./routes/categories')
 const ordersRoutes = require('./routes/orders')
 const productsRoutes = require('./routes/products')
 const usersRoutes = require('./routes/users')
+const errorHandler = require('./helpers/error-handler')
 
 
 
