@@ -1,4 +1,4 @@
-function ErrorHandler(err, req, res, next) {
+function errorHandler(err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
         //jwt authentication erro
         return res.status(500).json({ message: "The user is not authorized" })
@@ -12,4 +12,4 @@ function ErrorHandler(err, req, res, next) {
     //default to server erro 
     return res.status(500).json(err)
 }
-module.exports = ErrorHandler;
+module.exports = errorHandler;
