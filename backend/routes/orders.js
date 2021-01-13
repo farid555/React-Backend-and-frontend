@@ -6,12 +6,12 @@ const router = express.Router()
 
 
 router.get(`/`, async (req, res) => {
-    const orderList = await Order.find()
+    const orderList = await Order.find().populate('user', 'name')
 
     if (!orderList) {
         res.status(500).json({ success: false })
     }
-    res.send(ordertList)
+    res.send(orderList)
 })
 
 router.post(`/`, async (req, res) => {
